@@ -1,0 +1,14 @@
+name: Run Jenkinsfile
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Jenkinsfile
+      run: |
+        docker run -p 8080:8080 -p 50000:50000 -v $(pwd):/var/jenkins_home jenkins/jenkins:lts
+        # You'll need to replace the Jenkins URL, username, password, job name, and token with your own details
+        curl -X POST -u user:password http://localhost:8080/job/job_name/build?token=TOKEN
